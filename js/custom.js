@@ -774,34 +774,67 @@ const ClinicMaster = (function () {
   };
 
   const handleMenuActive = () => {
-    const currentPath = window.location.pathname.split("/").pop().toLowerCase();
+    const navLinks = document.querySelectorAll(".navbar-nav > li > a");
+    if (!navLinks.length) return;
 
-    document.querySelectorAll(".navbar-nav a, .navbar-nav li").forEach((el) => {
-      el.classList.remove("active");
+    // Set first link as active by default if none active
+    const hasActive = document.querySelector(".navbar-nav > li > a.active");
+    if (!hasActive && navLinks[0]) {
+      navLinks[0].classList.add("active");
+    }
+
+    // Click handler for instant active state update
+    navLinks.forEach((link) => {
+      link.addEventListener("click", function () {
+        navLinks.forEach((l) => {
+          l.classList.remove("active");
+          if (l.parentElement) l.parentElement.classList.remove("active");
+        });
+        this.classList.add("active");
+        if (this.parentElement) this.parentElement.classList.add("active");
+      });
     });
 
-    const links = document.querySelectorAll(
-      '.navbar-nav a[href]:not([href^="javascript"])'
-    );
-
-    links.forEach((link) => {
-      const linkPath = link.getAttribute("href").split("/").pop().toLowerCase();
-
-      if (linkPath && linkPath === currentPath) {
-        link.classList.add("active");
-
-        const parentLi = link.closest("li.group, li.relative");
-        if (parentLi) parentLi.classList.add("active");
-
-        const topLevelLi = link.closest(".navbar-nav > li");
-        if (topLevelLi) {
-          topLevelLi.classList.add("active");
-
-          const topAnchor = topLevelLi.querySelector(":scope > a");
-          if (topAnchor) topAnchor.classList.add("active");
+    // ScrollSpy to update active state as user scrolls through sections
+    const sections = [];
+    navLinks.forEach((link) => {
+      const href = link.getAttribute("href");
+      if (href && href.startsWith("#") && href.length > 1) {
+        const target = document.querySelector(href);
+        if (target) {
+          sections.push({ id: href, element: target, link: link });
         }
       }
     });
+
+    if (sections.length) {
+      window.addEventListener("scroll", function () {
+        const scrollPosition = window.scrollY + 200;
+        let currentSection = sections[0];
+
+        for (let i = 0; i < sections.length; i++) {
+          const sec = sections[i];
+          const top = sec.element.offsetTop;
+          const height = sec.element.offsetHeight;
+          if (scrollPosition >= top && scrollPosition < top + height) {
+            currentSection = sec;
+            break;
+          }
+        }
+
+        navLinks.forEach((l) => {
+          l.classList.remove("active");
+          if (l.parentElement) l.parentElement.classList.remove("active");
+        });
+
+        if (currentSection && currentSection.link) {
+          currentSection.link.classList.add("active");
+          if (currentSection.link.parentElement) {
+            currentSection.link.parentElement.classList.add("active");
+          }
+        }
+      }, { passive: true });
+    }
   };
 
   const directionSwitcher = () => {

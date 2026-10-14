@@ -16773,3 +16773,38 @@ input[type="time"]::-webkit-calendar-picker-indicator , input[type="date"]::-web
     }
   }
 }
+
+/* ==========================================================
+   Royal Auto Paints - Header Navigation Active & Hover Styles
+   ========================================================== */
+.header-nav .navbar-nav > li > a {
+  color: var(--color-bodycolor, #2B3940);
+  transition: all 0.3s ease-in-out;
+}
+
+.header-nav .navbar-nav > li > a:hover {
+  color: var(--color-primary, #09465F);
+  background-color: rgba(9, 70, 95, 0.08);
+}
+
+.header-nav .navbar-nav > li > a.active,
+.header-nav .navbar-nav > li.active > a {
+  background-color: var(--color-primary, #09465F) !important;
+  color: #ffffff !important;
+}
+
+.header-nav .navbar-nav > li > a.active:hover,
+.header-nav .navbar-nav > li.active > a:hover {
+  background-color: var(--color-primary, #09465F) !important;
+  color: #ffffff !important;
+}
+
+/* Sub-menu item hover */
+.header-nav .sub-menu li a {
+  transition: all 0.25s ease-in-out;
+}
+
+.header-nav .sub-menu li a:hover {
+  color: var(--color-primary, #09465F) !important;
+  padding-left: calc(var(--spacing, 4px) * 8.5) !important;
+}
