@@ -51,13 +51,36 @@
 	<!-- Custom Stylesheet -->
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	
+	<!-- Preloader Critical CSS to prevent FOUC / transparent flash -->
+	<style>
+		.preloader {
+			position: fixed !important;
+			top: 0 !important;
+			left: 0 !important;
+			width: 100vw !important;
+			height: 100vh !important;
+			z-index: 9999999 !important;
+			background-color: #09465F !important;
+			pointer-events: auto !important;
+		}
+		.preloader .site-name {
+			background-color: #09465F !important;
+			display: flex !important;
+			align-items: center !important;
+			justify-content: center !important;
+		}
+		.preloader .preloader-overlay {
+			background-color: #09465F !important;
+		}
+	</style>
+	
 </head>	
 <body id="bg" data-typography="typography_1">
 <div class="page-wraper">
 
 
-	<div class="w-screen h-screen relative preloader">
-		<div class="size-full text-center content-center fixed top-0 z-9999 ltr:left-0 rtl:right-0 bg-[#09465F] site-name">
+	<div class="w-screen h-screen fixed top-0 left-0 z-9999999 preloader" style="background-color: #09465F !important; width: 100vw; height: 100vh; position: fixed; top: 0; left: 0; z-index: 9999999;">
+		<div class="size-full text-center content-center fixed top-0 z-9999 ltr:left-0 rtl:right-0 bg-[#09465F] site-name" style="background-color: #09465F !important;">
 			<span class="lg:text-8xl sm:text-6xl text-4xl font-extrabold text-white uppercase overflow-x-hidden tracking-wider">ROYAL AUTO PAINTS</span>
 		</div>
 		<div class="bg-transparent fixed top-0 ltr:left-0 rtl:right-0 size-full z-99999 flex preloader-gutters">
@@ -86,7 +109,7 @@
 				<div class="absolute top-0 ltr:left-0 rtl:right-0 w-0 h-full bg-white inner-bar"></div>
 			</div>
 		</div>
-		<div class="bg-[#09465F] fixed top-0 ltr:left-0 rtl:right-0 size-full z-999999 -translate-x-full preloader-overlay"></div>
+		<div class="bg-[#09465F] fixed top-0 ltr:left-0 rtl:right-0 size-full z-999999 -translate-x-full preloader-overlay" style="background-color: #09465F !important;"></div>
 	</div>
 
 	<!-- Header Star -->

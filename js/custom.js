@@ -716,10 +716,19 @@ const ClinicMaster = (function () {
   };
 
   const handlePreloaderBars = () => {
-    if (typeof gsap === "undefined") return;
+    const preloaderEl = document.querySelector(".preloader");
+    if (!preloaderEl) return;
+
+    if (typeof gsap === "undefined") {
+      preloaderEl.style.display = "none";
+      return;
+    }
 
     const innerBars = document.querySelectorAll(".inner-bar");
-    if (!innerBars.length) return;
+    if (!innerBars.length) {
+      preloaderEl.style.display = "none";
+      return;
+    }
 
     let increment = 0;
 
@@ -754,23 +763,40 @@ const ClinicMaster = (function () {
         if (increment < innerBars.length) {
           animateBars();
         } else {
-          const preloaderTl = gsap.timeline();
+          const preloaderTl = gsap.timeline({
+            onComplete: () => {
+              if (preloaderEl) preloaderEl.style.display = "none";
+            }
+          });
 
           preloaderTl.to(".preloader-overlay", {
             transform: "translateX(0)",
-            duration: 0.5,
-            ease: "none",
-            delay: 0.4,
+            duration: 0.45,
+            ease: "power2.inOut",
+            delay: 0.15,
           });
 
-          preloaderTl.set(".preloader", { display: "none" });
+          preloaderTl.to(".preloader", {
+            opacity: 0,
+            duration: 0.3,
+            onComplete: () => {
+              if (preloaderEl) preloaderEl.style.display = "none";
+            }
+          });
         }
-      }, 200);
+      }, 180);
     };
 
     setTimeout(() => {
       animateBars();
-    }, 1000);
+    }, 200);
+
+    // Failsafe: hide preloader after 2.8s maximum
+    setTimeout(() => {
+      if (preloaderEl && preloaderEl.style.display !== "none") {
+        preloaderEl.style.display = "none";
+      }
+    }, 2800);
   };
 
   const handleMenuActive = () => {
