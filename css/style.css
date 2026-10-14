@@ -16808,3 +16808,19 @@ input[type="time"]::-webkit-calendar-picker-indicator , input[type="date"]::-web
   color: var(--color-primary, #09465F) !important;
   padding-left: calc(var(--spacing, 4px) * 8.5) !important;
 }
+
+/* Hero Banner Title Width Enhancement */
+.hero-banner-swiper .swiper-slide h1.headline {
+  width: 100% !important;
+  max-width: 820px !important;
+  line-height: 1.15 !important;
+  word-break: normal !important;
+  overflow-wrap: break-word !important;
+  hyphens: manual !important;
+}
+
+@media (min-width: 1481px) {
+  .hero-banner-swiper .swiper-slide h1.headline {
+    max-width: 880px !important;
+  }
+}
